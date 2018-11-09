@@ -6,8 +6,7 @@ public class ArrayStorage {
     private int size = 0;
 
     void clear() {
-        for (int i = 0; i < storage.length; i++) {
-            if (storage[i] == null) break;
+        for (int i = 0; i < size; i++) {
             storage[i] = null;
         }
         size = 0;
@@ -16,7 +15,7 @@ public class ArrayStorage {
     void save(Resume r) {
         if (storage[storage.length - 1] != null) System.out.println("storage is full!!!");
 
-        for (int i = 0; i < storage.length; i++) {
+        for (int i = 0; i <= size; i++) {
             if (storage[i] == null) {
                 storage[i] = r;
                 size++;
@@ -35,8 +34,7 @@ public class ArrayStorage {
 
     void delete(String uuid) {
         boolean moveElements = false;
-        for (int i = 0; i < storage.length; i++) {
-            if (storage[i] == null) break;
+        for (int i = 0; i <= size; i++) {
 
             if (moveElements) {
                 storage[i - 1] = storage[i];
