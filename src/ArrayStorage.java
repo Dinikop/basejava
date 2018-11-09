@@ -10,6 +10,7 @@ public class ArrayStorage {
             if (storage[i] == null) break;
             storage[i] = null;
         }
+        size = 0;
     }
 
     void save(Resume r) {
