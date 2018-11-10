@@ -14,36 +14,24 @@ public class ArrayStorage {
 
     void save(Resume r) {
         if (storage[storage.length - 1] != null) System.out.println("storage is full!!!");
-
-        for (int i = 0; i <= size; i++) {
-            if (storage[i] == null) {
-                storage[i] = r;
-                size++;
-                break;
-            }
-        }
-
-
+        storage[size] = r;
+        size++;
     }
 
     Resume get(String uuid) {
-        for (Resume resume : storage)
-            if (resume != null && resume.uuid.equals(uuid)) return resume;
+        for (int i = 0; i < size; i++) {
+            if (storage[i].uuid.equals(uuid)) return storage[i];
+        }
         return null;
     }
 
     void delete(String uuid) {
-        boolean moveElements = false;
-        for (int i = 0; i <= size; i++) {
-
-            if (moveElements) {
-                storage[i - 1] = storage[i];
-                storage[i] = null;
-            } else {
-                if (storage[i].uuid.equals(uuid)) {
-                    moveElements = true;
-                    size--;
-                }
+        for (int i = 0; i < size; i++) {
+            if (storage[i].uuid.equals(uuid)) {
+                System.arraycopy(storage, i+1, storage, i, size - (i+1));
+                storage[size-1] = null;
+                size--;
+                break;
             }
         }
     }
