@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 /**
  * Array based storage for Resumes
  */
@@ -14,8 +12,19 @@ public class ArrayStorage {
         size = 0;
     }
 
+    void update(Resume resume) {
+        for (int i = 0; i < size; i++) {
+            if (storage[i] == resume) {
+                storage[i].uuid = resume.uuid;
+                break;
+            }
+        }
+    }
+
     void save(Resume r) {
-        if (storage[storage.length - 1] != null) System.out.println("storage is full!!!");
+        if (storage[storage.length - 1] != null) {
+            System.out.println("storage is full!!!");
+        }
         storage[size] = r;
         size++;
     }
