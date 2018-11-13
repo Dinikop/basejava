@@ -4,7 +4,7 @@ import java.util.Arrays;
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    private Resume[] storage = new Resume[10000];
+    private Resume[] storage = new Resume[10_000];
     private int size = 0;
 
     void clear() {
@@ -13,7 +13,7 @@ public class ArrayStorage {
     }
 
     void update(Resume resume) {
-        int i = findResume(resume.uuid);
+        int i = findResume(resume.getUuid());
         if (i == -1) {
             System.out.println("ERROR: Resume not found!");
         } else {
@@ -26,7 +26,7 @@ public class ArrayStorage {
             System.out.println("ERROR: Storage is full!");
             return;
         }
-        if (findResume(r.uuid) >= 0) {
+        if (findResume(r.getUuid()) >= 0) {
             System.out.println("ERROR: Resume already in storage");
             return;
         }
@@ -69,7 +69,7 @@ public class ArrayStorage {
     private int findResume(String uuid) {
         int result = -1;
         for (int i = 0; i < size; i++) {
-            if (storage[i].uuid.equals(uuid)) {
+            if (storage[i].getUuid().equals(uuid)) {
                 result = i;
                 break;
             }
