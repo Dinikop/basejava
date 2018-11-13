@@ -12,26 +12,24 @@ public class ArrayStorage {
         size = 0;
     }
 
-    void update(Resume resume) {
-        int i = getResumeIndex(resume.getUuid());
+    void update(Resume r) {
+        int i = getResumeIndex(r.getUuid());
         if (i == -1) {
             System.out.println("ERROR: Resume not found!");
         } else {
-            storage[i] = resume;
+            storage[i] = r;
         }
     }
 
     void save(Resume r) {
         if (storage[storage.length - 1] != null) {
             System.out.println("ERROR: Storage is full!");
-            return;
-        }
-        if (getResumeIndex(r.getUuid()) >= 0) {
+        } else if (getResumeIndex(r.getUuid()) >= 0) {
             System.out.println("ERROR: Resume already in storage");
-            return;
+        } else {
+            storage[size] = r;
+            size++;
         }
-        storage[size] = r;
-        size++;
     }
 
     Resume get(String uuid) {
