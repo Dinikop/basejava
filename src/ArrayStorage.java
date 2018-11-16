@@ -22,10 +22,10 @@ public class ArrayStorage {
     }
 
     void save(Resume r) {
-        if (storage[storage.length - 1] != null) {
-            System.out.println("ERROR: Storage is full!");
-        } else if (getResumeIndex(r.getUuid()) >= 0) {
+        if (getResumeIndex(r.getUuid()) >= 0) {
             System.out.println("ERROR: Resume already in storage");
+        } else if (storage[storage.length - 1] != null) {
+            System.out.println("ERROR: Storage is full!");
         } else {
             storage[size] = r;
             size++;
