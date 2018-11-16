@@ -1,51 +1,58 @@
+package storage;
+
+import model.Resume;
+
 import java.util.Arrays;
 
 /**
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    private Resume[] storage = new Resume[10_000];
+
+    private static final int STORAGE_LIMIT = 10_000;
+
+    private Resume[] storage = new Resume[STORAGE_LIMIT];
     private int size = 0;
 
-    void clear() {
+    public void clear() {
         Arrays.fill(storage, 0, size, null);
         size = 0;
     }
 
-    void update(Resume r) {
+    public void update(Resume r) {
         int i = getResumeIndex(r.getUuid());
         if (i == -1) {
-            System.out.println("ERROR: Resume not found!");
+            System.out.println("Resume " + r.getUuid() + " not exist");
         } else {
             storage[i] = r;
         }
     }
 
-    void save(Resume r) {
+    public void save(Resume r) {
         if (getResumeIndex(r.getUuid()) >= 0) {
-            System.out.println("ERROR: Resume already in storage");
-        } else if (storage[storage.length - 1] != null) {
-            System.out.println("ERROR: Storage is full!");
+            System.out.println("Resume " + r.getUuid() + " already exist");
+        } else if (size >= STORAGE_LIMIT) {
+            System.out.println("Storage overflow");
         } else {
             storage[size] = r;
             size++;
         }
     }
 
-    Resume get(String uuid) {
+    public Resume get(String uuid) {
         int i = getResumeIndex(uuid);
         if (i == -1) {
-            System.out.println("ERROR: Resume not found!");
+            System.out.println("Resume " + uuid + " not exist");
             return null;
         } else {
             return storage[i];
         }
     }
 
-    void delete(String uuid) {
+    public void delete(String uuid) {
         int i = getResumeIndex(uuid);
         if (i == -1) {
-            System.out.println("ERROR: Resume not found!");
+            System.out.println("Resume " + uuid + " not exist");
         } else {
             storage[i] = storage[size - 1];
             storage[size - 1] = null;
@@ -56,11 +63,11 @@ public class ArrayStorage {
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-    Resume[] getAll() {
+    public Resume[] getAll() {
         return Arrays.copyOfRange(storage, 0, size);
     }
 
-    int size() {
+    public int size() {
         return size;
     }
 

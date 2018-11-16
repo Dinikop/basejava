@@ -1,3 +1,6 @@
+import model.Resume;
+import storage.ArrayStorage;
+
 /**
  * Test for your ArrayStorage implementation
  */
