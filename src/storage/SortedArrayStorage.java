@@ -7,11 +7,6 @@ import java.util.Arrays;
 public class SortedArrayStorage extends AbstractArrayStorage{
 
     @Override
-    public void update(Resume r) {
-
-    }
-
-    @Override
     public void save(Resume r) {
         if (size >= STORAGE_LIMIT) {
             System.out.println("Storage overflow");
