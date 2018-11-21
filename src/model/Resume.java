@@ -1,6 +1,6 @@
 package model;
 
-import java.util.Objects;
+import java.util.UUID;
 
 /**
  * Initial resume class
@@ -8,18 +8,17 @@ import java.util.Objects;
 public class Resume implements Comparable<Resume> {
 
     // Unique identifier
-    private String uuid;
+    private final String uuid;
 
-    public String getUuid() {
-        return uuid;
+    public Resume() {
+        this(UUID.randomUUID().toString());
     }
 
-    public void setUuid(String uuid) {
+    public Resume(String uuid) {
         this.uuid = uuid;
     }
 
-    @Override
-    public String toString() {
+    public String getUuid() {
         return uuid;
     }
 
@@ -27,13 +26,20 @@ public class Resume implements Comparable<Resume> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         Resume resume = (Resume) o;
-        return Objects.equals(uuid, resume.uuid);
+
+        return uuid.equals(resume.uuid);
     }
 
     @Override
     public int hashCode() {
         return uuid.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return uuid;
     }
 
     @Override
