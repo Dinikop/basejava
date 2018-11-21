@@ -39,6 +39,7 @@ public abstract class AbstractArrayStorage implements Storage {
             System.out.println("Resume " + uuid + " not exist");
         } else {
             deleteByIndex(index);
+            storage[size - 1] = null;
             size--;
         }
     }
@@ -69,5 +70,5 @@ public abstract class AbstractArrayStorage implements Storage {
 
     protected abstract void insert(Resume r, int index);
 
-    protected abstract void  deleteByIndex(int index);
+    protected abstract void deleteByIndex(int index);
 }
