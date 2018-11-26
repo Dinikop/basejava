@@ -2,6 +2,7 @@ package storage;
 
 import exception.ExistStorageException;
 import exception.NotExistStorageException;
+import exception.StorageException;
 import model.Resume;
 import org.junit.Assert;
 import org.junit.Before;
@@ -91,5 +92,17 @@ public abstract class AbstractArrayStorageTest {
     @Test(expected = ExistStorageException.class)
     public void saveExistStorageException() {
         storage.save(new Resume(UUID_1));
+    }
+
+    @Test(expected = StorageException.class)
+    public void saveStorageOverflowException() {
+        try {
+            for (int i = 0; i < 10_000 - 3; i++) {
+                storage.save(new Resume(String.valueOf(i)));
+            }
+        } catch (Exception e) {
+            Assert.fail();
+        }
+        storage.save(new Resume("dummy"));
     }
 }
