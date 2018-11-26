@@ -33,7 +33,8 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void clear() throws Exception {
-
+        storage.clear();
+        Assert.assertEquals(0, storage.size());
     }
 
     @Test
