@@ -76,4 +76,14 @@ public abstract class AbstractArrayStorageTest {
     public void getNotExist() throws Exception {
         storage.get("dummy");
     }
+
+    @Test(expected = NotExistStorageException.class)
+    public void deleteNotExistStorageException() {
+        storage.delete("dummy");
+    }
+
+    @Test(expected = NotExistStorageException.class)
+    public void updateNotExistStorageException() {
+        storage.update(new Resume("dummy"));
+    }
 }
