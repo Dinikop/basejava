@@ -1,5 +1,6 @@
 package storage;
 
+import exception.ExistStorageException;
 import exception.NotExistStorageException;
 import model.Resume;
 import org.junit.Assert;
@@ -85,5 +86,10 @@ public abstract class AbstractArrayStorageTest {
     @Test(expected = NotExistStorageException.class)
     public void updateNotExistStorageException() {
         storage.update(new Resume("dummy"));
+    }
+
+    @Test(expected = ExistStorageException.class)
+    public void saveExistStorageException() {
+        storage.save(new Resume(UUID_1));
     }
 }
