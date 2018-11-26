@@ -1,7 +1,6 @@
 .idea
 out
 lib
-test
 *.iml
 log
 lib
