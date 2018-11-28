@@ -79,14 +79,15 @@ public abstract class AbstractArrayStorageTest {
 
     @Test(expected = StorageException.class)
     public void saveStorageOverflowException() {
+        storage.clear();
         try {
-            for (int i = 0; i < 10_000 - 3; i++) {
+            for (int i = 0; i < ArrayStorage.STORAGE_LIMIT; i++) {
                 storage.save(new Resume(String.valueOf(i)));
             }
-        } catch (Exception e) {
-            fail();
+        } catch (StorageException e) {
+            fail("storage is not overflow yet");
         }
-        storage.save(new Resume("dummy"));
+        storage.save(RESUME_UUID1);
     }
 
     @Test
