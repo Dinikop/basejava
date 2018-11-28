@@ -1,6 +1,7 @@
 import model.Resume;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 
 public class MainReflection {
     public static void main(String[] args) throws IllegalAccessException, NoSuchMethodException {
@@ -10,7 +11,11 @@ public class MainReflection {
         System.out.println(field.getName());
         System.out.println(field.get(r));
         field.set(r, "new_uuid");
-        r.getClass().getMethod("toString", null);
+        try {
+            r.getClass().getMethod("toString").invoke(r);
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
         System.out.println(r);
     }
 }
