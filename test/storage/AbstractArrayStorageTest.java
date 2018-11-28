@@ -67,9 +67,10 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void save() throws Exception {
+        int originalSize = storage.size();
         storage.save(RESUME_DUMMY);
         assertThat(RESUME_DUMMY, is(storage.get(RESUME_DUMMY.getUuid())));
-        assertEquals(4, storage.getAll().length);
+        assertEquals(originalSize + 1, storage.getAll().length);
     }
 
     @Test(expected = ExistStorageException.class)
