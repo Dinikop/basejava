@@ -14,7 +14,7 @@ public abstract class AbstractStorage implements Storage {
     @Override
     public void clear() {
         clean();
-        updateSize();
+        size = 0;
     }
 
     @Override
@@ -35,7 +35,7 @@ public abstract class AbstractStorage implements Storage {
                 throw new ExistStorageException(r.getUuid());
             } else {
                 insertResume(r);
-                updateSize();
+                size++;
             }
         }
     }
@@ -54,7 +54,7 @@ public abstract class AbstractStorage implements Storage {
             throw new NotExistStorageException(uuid);
         } else {
             remove(uuid);
-            updateSize();
+            size--;
         }
     }
 
@@ -64,8 +64,6 @@ public abstract class AbstractStorage implements Storage {
     }
 
     public abstract Resume[] getAll();
-
-    protected abstract void updateSize();
 
     protected abstract boolean isContained(String uuid);
 

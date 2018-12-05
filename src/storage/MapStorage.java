@@ -15,11 +15,6 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected void updateSize() {
-        size = storage.size();
-    }
-
-    @Override
     protected boolean isContained(String uuid) {
         return storage.containsKey(uuid);
     }
