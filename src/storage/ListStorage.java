@@ -2,12 +2,12 @@ package storage;
 
 import model.Resume;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListStorage extends AbstractStorage {
 
-    protected List<Resume> storage = new LinkedList<>();
+    protected List<Resume> storage = new ArrayList<>();
 
     @Override
     public Resume[] getAll() {
