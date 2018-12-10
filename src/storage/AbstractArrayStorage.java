@@ -17,6 +17,10 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return Arrays.copyOfRange(storage, 0, size);
     }
 
+    @Override
+    public int size() {
+        return size;
+    }
 
     @Override
     protected boolean isContained(int index) {
