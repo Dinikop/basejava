@@ -6,6 +6,10 @@ import java.util.Arrays;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
 
+    protected static final int STORAGE_LIMIT = 10_000;
+
+    protected int size = 0;
+
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
 
     @Override
@@ -13,29 +17,30 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return Arrays.copyOfRange(storage, 0, size);
     }
 
+
     @Override
-    protected boolean isContained(String uuid) {
-        return getIndex(uuid) >= 0;
+    protected boolean isContained(int index) {
+        return index >= 0;
     }
 
     @Override
-    protected void insertResume(Resume r) {
-        insertByIndex(r, getIndex(r.getUuid()));
+    protected void insertResume(Resume r, int index) {
+        insertByIndex(r, index);
     }
 
     @Override
-    protected Resume retrieve(String uuid) {
-        return storage[getIndex(uuid)];
+    protected Resume retrieve(int index) {
+        return storage[index];
     }
 
     @Override
-    protected void remove(String uuid) {
-        deleteByIndex(getIndex(uuid));
+    protected void remove(int index) {
+        deleteByIndex(index);
     }
 
     @Override
-    protected void replace(Resume r) {
-        storage[getIndex(r.getUuid())] = r;
+    protected void replace(Resume r, int index) {
+        storage[index] = r;
     }
 
     @Override
