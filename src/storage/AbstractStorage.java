@@ -2,78 +2,71 @@ package storage;
 
 import exception.ExistStorageException;
 import exception.NotExistStorageException;
-import exception.StorageException;
 import model.Resume;
 
 public abstract class AbstractStorage implements Storage {
 
-    protected static final int STORAGE_LIMIT = 10_000;
-
-    protected int size = 0;
 
     @Override
     public void clear() {
         clean();
-        size = 0;
     }
 
     @Override
     public void update(Resume r) {
-        if (!isContained(r.getUuid())) {
+        int index = getIndex(r.getUuid());
+        if (!isContained(index)) {
             throw new NotExistStorageException(r.getUuid());
         } else {
-            replace(r);
+            replace(r, index);
         }
     }
 
     @Override
     public void save(Resume r) {
-        if (size >= STORAGE_LIMIT) {
-            throw new StorageException("Storage overflow", r.getUuid());
+        int index = getIndex(r.getUuid());
+        if (isContained(index)) {
+            throw new ExistStorageException(r.getUuid());
         } else {
-            if (isContained(r.getUuid())) {
-                throw new ExistStorageException(r.getUuid());
-            } else {
-                insertResume(r);
-                size++;
-            }
+            insertResume(r, index);
         }
+
     }
 
     @Override
     public Resume get(String uuid) {
-        if (!isContained(uuid)) {
+        int index = getIndex(uuid);
+        if (!isContained(index)) {
             throw new NotExistStorageException(uuid);
         }
-        return retrieve(uuid);
+        return retrieve(index);
     }
 
     @Override
     public void delete(String uuid) {
-        if (!isContained(uuid)) {
+        int index = getIndex(uuid);
+        if (!isContained(index)) {
             throw new NotExistStorageException(uuid);
         } else {
-            remove(uuid);
-            size--;
+            remove(index);
         }
     }
 
-    @Override
-    public int size() {
-        return size;
-    }
+    public abstract int size();
 
     public abstract Resume[] getAll();
 
-    protected abstract boolean isContained(String uuid);
+    protected abstract int getIndex(String uuid);
 
-    protected abstract void insertResume(Resume r);
+    protected abstract boolean isContained(int index);
 
-    protected abstract Resume retrieve(String uuid);
+    protected abstract void insertResume(Resume r, int index);
 
-    protected abstract void remove(String uuid);
+    protected abstract Resume retrieve(int index);
 
-    protected abstract void replace(Resume r);
+    protected abstract void remove(int index);
+
+    protected abstract void replace(Resume r, int index);
 
     protected abstract void clean();
 }
