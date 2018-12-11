@@ -1,5 +1,6 @@
 package storage;
 
+import exception.StorageException;
 import model.Resume;
 
 import java.util.Arrays;
@@ -29,7 +30,11 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     @Override
     protected void insertResume(Resume r, int index) {
+        if (size == STORAGE_LIMIT) {
+            throw new StorageException("Storage overflow", r.getUuid());
+        }
         insertByIndex(r, index);
+        size++;
     }
 
     @Override
@@ -40,6 +45,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     @Override
     protected void remove(int index) {
         deleteByIndex(index);
+        size--;
     }
 
     @Override
@@ -50,6 +56,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     @Override
     protected void clean() {
         Arrays.fill(storage, 0, size, null);
+        size = 0;
     }
 
     protected abstract int getIndex(String uuid);

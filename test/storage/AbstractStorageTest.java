@@ -10,6 +10,7 @@ import org.junit.Test;
 import java.util.Arrays;
 
 import static org.junit.Assert.*;
+import static org.junit.Assume.assumeTrue;
 
 public abstract class AbstractStorageTest {
 
@@ -70,6 +71,8 @@ public abstract class AbstractStorageTest {
 
     @Test(expected = StorageException.class)
     public void saveStorageOverflowException() {
+        assumeTrue("This test is only for AbstractArrayStorage implementation",
+                storage instanceof AbstractArrayStorage);
         storage.clear();
         try {
             for (int i = 0; i < ArrayStorage.STORAGE_LIMIT; i++) {
