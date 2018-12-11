@@ -8,7 +8,7 @@ import model.Resume;
 public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
-    protected int getIndex(String uuid) {
+    protected Object getSearchedObject(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {
                 return i;
@@ -18,12 +18,12 @@ public class ArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected void insertByIndex(Resume r, int index) {
+    protected void insertByIndex(Resume r, Object index) {
         storage[size] = r;
     }
 
     @Override
-    protected void deleteByIndex(int index) {
-        storage[index] = storage[size - 1];
+    protected void deleteByIndex(Object index) {
+        storage[(int) index] = storage[size - 1];
     }
 }

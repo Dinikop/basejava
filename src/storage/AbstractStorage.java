@@ -14,7 +14,7 @@ public abstract class AbstractStorage implements Storage {
 
     @Override
     public void update(Resume r) {
-        int index = getIndex(r.getUuid());
+        Object index = getSearchedObject(r.getUuid());
         if (!isContained(index)) {
             throw new NotExistStorageException(r.getUuid());
         } else {
@@ -24,7 +24,7 @@ public abstract class AbstractStorage implements Storage {
 
     @Override
     public void save(Resume r) {
-        int index = getIndex(r.getUuid());
+        Object index = getSearchedObject(r.getUuid());
         if (isContained(index)) {
             throw new ExistStorageException(r.getUuid());
         } else {
@@ -35,7 +35,7 @@ public abstract class AbstractStorage implements Storage {
 
     @Override
     public Resume get(String uuid) {
-        int index = getIndex(uuid);
+        Object index = getSearchedObject(uuid);
         if (!isContained(index)) {
             throw new NotExistStorageException(uuid);
         }
@@ -44,7 +44,7 @@ public abstract class AbstractStorage implements Storage {
 
     @Override
     public void delete(String uuid) {
-        int index = getIndex(uuid);
+        Object index = getSearchedObject(uuid);
         if (!isContained(index)) {
             throw new NotExistStorageException(uuid);
         } else {
@@ -56,17 +56,17 @@ public abstract class AbstractStorage implements Storage {
 
     public abstract Resume[] getAll();
 
-    protected abstract int getIndex(String uuid);
+    protected abstract Object getSearchedObject(String uuid);
 
-    protected abstract boolean isContained(int index);
+    protected abstract boolean isContained(Object index);
 
-    protected abstract void insertResume(Resume r, int index);
+    protected abstract void insertResume(Resume r, Object index);
 
-    protected abstract Resume retrieve(int index);
+    protected abstract Resume retrieve(Object index);
 
-    protected abstract void remove(int index);
+    protected abstract void remove(Object index);
 
-    protected abstract void replace(Resume r, int index);
+    protected abstract void replace(Resume r, Object index);
 
     protected abstract void clean();
 }

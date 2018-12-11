@@ -20,33 +20,33 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isContained(int index) {
-        return true;
+    protected boolean isContained(Object index) {
+        return storage.containsKey((String) index);
     }
 
     @Override
-    protected int getIndex(String uuid) {
-        return 0;
+    protected Object getSearchedObject(String uuid) {
+        return uuid;
     }
 
     @Override
-    protected void insertResume(Resume r, int index) {
-
+    protected void insertResume(Resume r, Object index) {
+        storage.put((String) index, r);
     }
 
     @Override
-    protected Resume retrieve(int index) {
-        return null;
+    protected Resume retrieve(Object index) {
+        return storage.get((String) index);
     }
 
     @Override
-    protected void remove(int index) {
-
+    protected void remove(Object index) {
+        storage.remove((String) index);
     }
 
     @Override
-    protected void replace(Resume r, int index) {
-
+    protected void replace(Resume r, Object index) {
+        storage.replace((String) index, r);
     }
 
     @Override

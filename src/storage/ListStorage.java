@@ -20,32 +20,32 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isContained(int index) {
-        return index >= 0;
+    protected boolean isContained(Object index) {
+        return (int) index >= 0;
     }
 
     @Override
-    protected void insertResume(Resume r, int index) {
+    protected void insertResume(Resume r, Object index) {
         storage.add(r);
     }
 
     @Override
-    protected Resume retrieve(int index) {
-        return storage.get(index);
+    protected Resume retrieve(Object index) {
+        return storage.get((int) index);
     }
 
     @Override
-    protected void remove(int index) {
-        storage.remove(index);
+    protected void remove(Object index) {
+        storage.remove((int) index);
     }
 
     @Override
-    protected void replace(Resume r, int index) {
-        storage.set(index, r);
+    protected void replace(Resume r, Object index) {
+        storage.set((int) index, r);
     }
 
     @Override
-    protected int getIndex(String uuid) {
+    protected Object getSearchedObject(String uuid) {
         for (int i = 0; i < storage.size(); i++) {
             if (storage.get(i).getUuid().equals(uuid)) {
                 return i;
@@ -59,8 +59,4 @@ public class ListStorage extends AbstractStorage {
         storage.clear();
     }
 
-    public static void main(String[] args) {
-        Storage listStorage = new ListStorage();
-        listStorage.save(new Resume("uuid1"));
-    }
 }
