@@ -14,6 +14,12 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
 
     @Override
+    public void clear() {
+        Arrays.fill(storage, 0, size, null);
+        size = 0;
+    }
+
+    @Override
     public Resume[] getAll() {
         return Arrays.copyOfRange(storage, 0, size);
     }
@@ -51,12 +57,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     @Override
     protected void replace(Resume r, Object index) {
         storage[(int) index] = r;
-    }
-
-    @Override
-    protected void clean() {
-        Arrays.fill(storage, 0, size, null);
-        size = 0;
     }
 
     protected abstract Object getSearchedObject(String uuid);

@@ -10,6 +10,11 @@ public class MapStorage extends AbstractStorage {
     protected Map<String, Resume> storage = new HashMap<>();
 
     @Override
+    public void clear() {
+        storage.clear();
+    }
+
+    @Override
     public Resume[] getAll() {
         return storage.values().toArray(new Resume[0]);
     }
@@ -47,10 +52,5 @@ public class MapStorage extends AbstractStorage {
     @Override
     protected void replace(Resume r, Object index) {
         storage.replace((String) index, r);
-    }
-
-    @Override
-    protected void clean() {
-        storage.clear();
     }
 }

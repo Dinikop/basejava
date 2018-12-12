@@ -6,12 +6,6 @@ import model.Resume;
 
 public abstract class AbstractStorage implements Storage {
 
-
-    @Override
-    public void clear() {
-        clean();
-    }
-
     @Override
     public void update(Resume r) {
         Object index = getSearchedObject(r.getUuid());
@@ -52,6 +46,8 @@ public abstract class AbstractStorage implements Storage {
         }
     }
 
+    public abstract void clear();
+
     public abstract int size();
 
     public abstract Resume[] getAll();
@@ -67,6 +63,4 @@ public abstract class AbstractStorage implements Storage {
     protected abstract void remove(Object index);
 
     protected abstract void replace(Resume r, Object index);
-
-    protected abstract void clean();
 }
