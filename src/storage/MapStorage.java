@@ -3,6 +3,7 @@ package storage;
 import model.Resume;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MapStorage extends AbstractStorage {
@@ -15,13 +16,13 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume[] getAll() {
-        return storage.values().toArray(new Resume[0]);
+    public int size() {
+        return storage.size();
     }
 
     @Override
-    public int size() {
-        return storage.size();
+    protected List<Resume> getStorage() {
+        return (List<Resume>) storage.values();
     }
 
     @Override

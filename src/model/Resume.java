@@ -10,12 +10,16 @@ public class Resume {
     // Unique identifier
     private final String uuid;
 
-    public Resume() {
-        this(UUID.randomUUID().toString());
+    private String fullName;
+
+    public Resume(String fullName) {
+        this.uuid = UUID.randomUUID().toString();
+        this.fullName = fullName;
     }
 
-    public Resume(String uuid) {
+    public Resume(String uuid, String fullName) {
         this.uuid = uuid;
+        this.fullName = fullName;
     }
 
     public String getUuid() {
@@ -40,5 +44,9 @@ public class Resume {
     @Override
     public String toString() {
         return uuid;
+    }
+
+    public String getFullName() {
+        return fullName;
     }
 }

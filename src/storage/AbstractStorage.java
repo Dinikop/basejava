@@ -4,7 +4,14 @@ import exception.ExistStorageException;
 import exception.NotExistStorageException;
 import model.Resume;
 
+import java.util.Comparator;
+import java.util.List;
+
 public abstract class AbstractStorage implements Storage {
+
+    protected static final Comparator<Resume> RESUME_COMPARATOR =
+            Comparator.comparing(Resume::getFullName)
+                    .thenComparing(Resume::getUuid);
 
     @Override
     public void update(Resume r) {
@@ -37,6 +44,13 @@ public abstract class AbstractStorage implements Storage {
     }
 
     @Override
+    public List<Resume> getAllSorted() {
+        List<Resume> storage = getStorage();
+        storage.sort(RESUME_COMPARATOR);
+        return storage;
+    }
+
+    @Override
     public void delete(String uuid) {
         Object index = getSearchedObject(uuid);
         if (!isContained(index)) {
@@ -50,7 +64,7 @@ public abstract class AbstractStorage implements Storage {
 
     public abstract int size();
 
-    public abstract Resume[] getAll();
+    protected abstract List<Resume> getStorage();
 
     protected abstract Object getSearchedObject(String uuid);
 

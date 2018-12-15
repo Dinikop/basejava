@@ -3,6 +3,7 @@ package storage;
 import model.Resume;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ListStorage extends AbstractStorage {
@@ -15,13 +16,13 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume[] getAll() {
-        return storage.toArray(new Resume[0]);
+    public int size() {
+        return storage.size();
     }
 
     @Override
-    public int size() {
-        return storage.size();
+    protected List<Resume> getStorage() {
+        return Collections.unmodifiableList(storage);
     }
 
     @Override
