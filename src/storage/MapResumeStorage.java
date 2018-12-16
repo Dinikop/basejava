@@ -3,6 +3,7 @@ package storage;
 import model.Resume;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +23,7 @@ public class MapResumeStorage extends AbstractStorage {
 
     @Override
     protected List<Resume> getStorage() {
-        return (List<Resume>) storage.values();
+        return new LinkedList<>(storage.values());
     }
 
     @Override
@@ -37,7 +38,7 @@ public class MapResumeStorage extends AbstractStorage {
 
     @Override
     protected void insertResume(Resume r, Object searchedResume) {
-        storage.put(((Resume) searchedResume).getUuid(), r);
+        storage.put(r.getUuid(), r);
     }
 
     @Override
