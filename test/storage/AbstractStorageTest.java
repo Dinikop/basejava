@@ -8,8 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.Comparator;
+import java.util.List;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 import static org.junit.Assume.assumeTrue;
 
@@ -22,10 +23,10 @@ public abstract class AbstractStorageTest {
     private static final String UUID_3 = "uuid3";
     private static final String UUID_DUMMY = "dummy";
 
-    private static final Resume RESUME_UUID1 = new Resume(UUID_1);
-    private static final Resume RESUME_UUID2 = new Resume(UUID_2);
-    private static final Resume RESUME_UUID3 = new Resume(UUID_3);
-    private static final Resume RESUME_DUMMY = new Resume(UUID_DUMMY);
+    private static final Resume RESUME_UUID1 = new Resume(UUID_1, "fullName1");
+    private static final Resume RESUME_UUID2 = new Resume(UUID_2, "fullName2");
+    private static final Resume RESUME_UUID3 = new Resume(UUID_3, "fullName3");
+    private static final Resume RESUME_DUMMY = new Resume(UUID_DUMMY, "fullName4");
 
     protected AbstractStorageTest(Storage storage) {
         this.storage = storage;
@@ -47,7 +48,7 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void update() {
-        Resume resume = new Resume(UUID_1);
+        Resume resume = new Resume(UUID_1, "fullNameUpdated");
         storage.update(resume);
         assertSame(resume, storage.get(resume.getUuid()));
     }
@@ -117,10 +118,9 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void getAll() {
-        Resume[] expectedResumes = new Resume[]{RESUME_UUID1, RESUME_UUID2, RESUME_UUID3};
-        Resume[] actualResumes = storage.getAll();
-        Arrays.sort(actualResumes, Comparator.comparing(Resume::getUuid));
-        assertArrayEquals(expectedResumes, actualResumes);
-        assertEquals(expectedResumes.length, actualResumes.length);
+        List<Resume> expectedResumes = Arrays.asList(RESUME_UUID1, RESUME_UUID2, RESUME_UUID3);
+        List<Resume> actualResumes = storage.getAllSorted();
+        assertThat(expectedResumes, is(actualResumes));
+        assertEquals(expectedResumes.size(), actualResumes.size());
     }
 }

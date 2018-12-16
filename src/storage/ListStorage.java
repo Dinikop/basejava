@@ -3,7 +3,7 @@ package storage;
 import model.Resume;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ListStorage extends AbstractStorage {
@@ -22,32 +22,32 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected List<Resume> getStorage() {
-        return Collections.unmodifiableList(storage);
+        return new LinkedList<>(storage);
     }
 
     @Override
-    protected boolean isContained(Object index) {
-        return (int) index >= 0;
+    protected boolean isContained(Object key) {
+        return (int) key >= 0;
     }
 
     @Override
-    protected void insertResume(Resume r, Object index) {
+    protected void insertResume(Resume r, Object key) {
         storage.add(r);
     }
 
     @Override
-    protected Resume retrieve(Object index) {
-        return storage.get((int) index);
+    protected Resume retrieve(Object key) {
+        return storage.get((int) key);
     }
 
     @Override
-    protected void remove(Object index) {
-        storage.remove((int) index);
+    protected void remove(Object key) {
+        storage.remove((int) key);
     }
 
     @Override
-    protected void replace(Resume r, Object index) {
-        storage.set((int) index, r);
+    protected void replace(Resume r, Object key) {
+        storage.set((int) key, r);
     }
 
     @Override

@@ -3,10 +3,11 @@ package storage;
 import model.Resume;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class MapStorage extends AbstractStorage {
+public class MapUuidStorage extends AbstractStorage {
 
     protected Map<String, Resume> storage = new HashMap<>();
 
@@ -22,12 +23,12 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected List<Resume> getStorage() {
-        return (List<Resume>) storage.values();
+        return new LinkedList<>(storage.values());
     }
 
     @Override
-    protected boolean isContained(Object index) {
-        return storage.containsKey((String) index);
+    protected boolean isContained(Object key) {
+        return storage.containsKey((String) key);
     }
 
     @Override
@@ -36,22 +37,22 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected void insertResume(Resume r, Object index) {
-        storage.put((String) index, r);
+    protected void insertResume(Resume r, Object key) {
+        storage.put((String) key, r);
     }
 
     @Override
-    protected Resume retrieve(Object index) {
-        return storage.get((String) index);
+    protected Resume retrieve(Object key) {
+        return storage.get((String) key);
     }
 
     @Override
-    protected void remove(Object index) {
-        storage.remove((String) index);
+    protected void remove(Object key) {
+        storage.remove((String) key);
     }
 
     @Override
-    protected void replace(Resume r, Object index) {
-        storage.replace((String) index, r);
+    protected void replace(Resume r, Object key) {
+        storage.replace((String) key, r);
     }
 }
