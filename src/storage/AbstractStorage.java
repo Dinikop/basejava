@@ -10,58 +10,7 @@ import java.util.List;
 public abstract class AbstractStorage implements Storage {
 
     protected static final Comparator<Resume> RESUME_COMPARATOR =
-            Comparator.comparing(Resume::getUuid);
-
-    @Override
-    public void update(Resume resume) {
-        Object key = getSearchedObject(resume.getUuid());
-        if (!isContained(key)) {
-            throw new NotExistStorageException(resume.getUuid());
-        } else {
-            replace(resume, key);
-        }
-    }
-
-    @Override
-    public void save(Resume resume) {
-        Object index = getSearchedObject(resume.getUuid());
-        if (isContained(index)) {
-            throw new ExistStorageException(resume.getUuid());
-        } else {
-            insertResume(resume, index);
-        }
-
-    }
-
-    @Override
-    public Resume get(String uuid) {
-        Object index = getSearchedObject(uuid);
-        if (!isContained(index)) {
-            throw new NotExistStorageException(uuid);
-        }
-        return retrieve(index);
-    }
-
-    @Override
-    public List<Resume> getAllSorted() {
-        List<Resume> storage = getStorage();
-        storage.sort(RESUME_COMPARATOR);
-        return storage;
-    }
-
-    @Override
-    public void delete(String uuid) {
-        Object index = getSearchedObject(uuid);
-        if (!isContained(index)) {
-            throw new NotExistStorageException(uuid);
-        } else {
-            remove(index);
-        }
-    }
-
-    public abstract void clear();
-
-    public abstract int size();
+            Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);
 
     protected abstract List<Resume> getStorage();
 
@@ -76,4 +25,51 @@ public abstract class AbstractStorage implements Storage {
     protected abstract void remove(Object key);
 
     protected abstract void replace(Resume resume, Object key);
+
+    @Override
+    public void update(Resume resume) {
+        Object searchedKey = getExistedSearchKey(resume.getUuid());
+        replace(resume, searchedKey);
+    }
+
+    @Override
+    public void save(Resume resume) {
+        Object searchedKey = getNotExistedSearchKey(resume.getUuid());
+        insertResume(resume, searchedKey);
+    }
+
+    @Override
+    public Resume get(String uuid) {
+        Object searchedKey = getExistedSearchKey(uuid);
+        return retrieve(searchedKey);
+    }
+
+    @Override
+    public List<Resume> getAllSorted() {
+        List<Resume> storage = getStorage();
+        storage.sort(RESUME_COMPARATOR);
+        return storage;
+    }
+
+    @Override
+    public void delete(String uuid) {
+        Object searchedKey = getExistedSearchKey(uuid);
+        remove(searchedKey);
+    }
+
+    private Object getExistedSearchKey(String uuid) {
+        Object index = getSearchedObject(uuid);
+        if (!isContained(index)) {
+            throw new NotExistStorageException(uuid);
+        }
+        return index;
+    }
+
+    private Object getNotExistedSearchKey(String uuid) {
+        Object index = getSearchedObject(uuid);
+        if (isContained(index)) {
+            throw new ExistStorageException(uuid);
+        }
+        return index;
+    }
 }
