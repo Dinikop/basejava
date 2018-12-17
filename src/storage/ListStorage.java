@@ -26,28 +26,28 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isContained(Object key) {
-        return (int) key >= 0;
+    protected boolean isContained(Object searchedKey) {
+        return (int) searchedKey >= 0;
     }
 
     @Override
-    protected void insertResume(Resume resume, Object key) {
+    protected void insertResume(Resume resume, Object searchedKey) {
         storage.add(resume);
     }
 
     @Override
-    protected Resume retrieve(Object key) {
-        return storage.get((int) key);
+    protected Resume retrieve(Object searchedKey) {
+        return storage.get((int) searchedKey);
     }
 
     @Override
-    protected void remove(Object key) {
-        storage.remove((int) key);
+    protected void remove(Object searchedKey) {
+        storage.remove((int) searchedKey);
     }
 
     @Override
-    protected void replace(Resume resume, Object key) {
-        storage.set((int) key, resume);
+    protected void replace(Resume resume, Object searchedKey) {
+        storage.set((int) searchedKey, resume);
     }
 
     @Override

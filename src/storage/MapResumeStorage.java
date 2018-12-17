@@ -32,29 +32,29 @@ public class MapResumeStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isContained(Object searchedResume) {
-        return searchedResume != null;
+    protected boolean isContained(Object searchedKey) {
+        return searchedKey != null;
     }
 
     @Override
-    protected void insertResume(Resume resume, Object searchedResume) {
+    protected void insertResume(Resume resume, Object searchedKey) {
         storage.put(resume.getUuid(), resume);
     }
 
     @Override
-    protected Resume retrieve(Object searchedResume) {
-        return (Resume) searchedResume;
+    protected Resume retrieve(Object searchedKey) {
+        return (Resume) searchedKey;
     }
 
     @Override
-    protected void remove(Object searchedResume) {
-        String uuid = ((Resume) searchedResume).getUuid();
+    protected void remove(Object searchedKey) {
+        String uuid = ((Resume) searchedKey).getUuid();
         storage.remove(uuid);
     }
 
     @Override
-    protected void replace(Resume resume, Object searchedResume) {
-        String uuid = ((Resume) searchedResume).getUuid();
+    protected void replace(Resume resume, Object searchedKey) {
+        String uuid = ((Resume) searchedKey).getUuid();
         storage.replace(uuid, resume);
     }
 }

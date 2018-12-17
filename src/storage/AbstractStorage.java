@@ -16,15 +16,15 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract Object getSearchedObject(String uuid);
 
-    protected abstract boolean isContained(Object key);
+    protected abstract boolean isContained(Object searchedKey);
 
-    protected abstract void insertResume(Resume resume, Object key);
+    protected abstract void insertResume(Resume resume, Object searchedKey);
 
-    protected abstract Resume retrieve(Object key);
+    protected abstract Resume retrieve(Object searchedKey);
 
-    protected abstract void remove(Object key);
+    protected abstract void remove(Object searchedKey);
 
-    protected abstract void replace(Resume resume, Object key);
+    protected abstract void replace(Resume resume, Object searchedKey);
 
     @Override
     public void update(Resume resume) {

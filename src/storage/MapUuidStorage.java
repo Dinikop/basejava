@@ -27,8 +27,8 @@ public class MapUuidStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isContained(Object key) {
-        return storage.containsKey((String) key);
+    protected boolean isContained(Object searchedKey) {
+        return storage.containsKey((String) searchedKey);
     }
 
     @Override
@@ -37,22 +37,22 @@ public class MapUuidStorage extends AbstractStorage {
     }
 
     @Override
-    protected void insertResume(Resume resume, Object key) {
-        storage.put((String) key, resume);
+    protected void insertResume(Resume resume, Object searchedKey) {
+        storage.put((String) searchedKey, resume);
     }
 
     @Override
-    protected Resume retrieve(Object key) {
-        return storage.get((String) key);
+    protected Resume retrieve(Object searchedKey) {
+        return storage.get((String) searchedKey);
     }
 
     @Override
-    protected void remove(Object key) {
-        storage.remove((String) key);
+    protected void remove(Object searchedKey) {
+        storage.remove((String) searchedKey);
     }
 
     @Override
-    protected void replace(Resume resume, Object key) {
-        storage.replace((String) key, resume);
+    protected void replace(Resume resume, Object searchedKey) {
+        storage.replace((String) searchedKey, resume);
     }
 }

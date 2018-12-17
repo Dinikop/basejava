@@ -31,33 +31,33 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isContained(Object key) {
-        return (int) key >= 0;
+    protected boolean isContained(Object searchedKey) {
+        return (int) searchedKey >= 0;
     }
 
     @Override
-    protected void insertResume(Resume resume, Object key) {
+    protected void insertResume(Resume resume, Object searchedKey) {
         if (size == STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", resume.getUuid());
         }
-        insertByIndex(resume, key);
+        insertByIndex(resume, searchedKey);
         size++;
     }
 
     @Override
-    protected Resume retrieve(Object key) {
-        return storage[(int) key];
+    protected Resume retrieve(Object searchedKey) {
+        return storage[(int) searchedKey];
     }
 
     @Override
-    protected void remove(Object key) {
-        deleteByIndex(key);
+    protected void remove(Object searchedKey) {
+        deleteByIndex(searchedKey);
         size--;
     }
 
     @Override
-    protected void replace(Resume resume, Object key) {
-        storage[(int) key] = resume;
+    protected void replace(Resume resume, Object searchedKey) {
+        storage[(int) searchedKey] = resume;
     }
 
     protected abstract Object getSearchedObject(String uuid);
