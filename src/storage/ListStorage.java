@@ -3,7 +3,6 @@ package storage;
 import model.Resume;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class ListStorage extends AbstractStorage {
@@ -22,7 +21,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected List<Resume> getStorage() {
-        return new LinkedList<>(storage);
+        return new ArrayList<>(storage);
     }
 
     @Override
