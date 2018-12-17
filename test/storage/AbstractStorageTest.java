@@ -2,7 +2,6 @@ package storage;
 
 import exception.ExistStorageException;
 import exception.NotExistStorageException;
-import exception.StorageException;
 import model.Resume;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,11 +11,10 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
-import static org.junit.Assume.assumeTrue;
 
 public abstract class AbstractStorageTest {
 
-    private Storage storage;
+    protected Storage storage;
 
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
@@ -68,21 +66,6 @@ public abstract class AbstractStorageTest {
 
     @Test(expected = ExistStorageException.class)
     public void saveExistStorageException() {
-        storage.save(RESUME_UUID1);
-    }
-
-    @Test(expected = StorageException.class)
-    public void saveStorageOverflowException() {
-        assumeTrue("This test is only for AbstractArrayStorage implementation",
-                storage instanceof AbstractArrayStorage);
-        storage.clear();
-        try {
-            for (int i = 0; i < ArrayStorage.STORAGE_LIMIT; i++) {
-                storage.save(new Resume(String.valueOf(i)));
-            }
-        } catch (StorageException e) {
-            fail("storage is not overflow yet");
-        }
         storage.save(RESUME_UUID1);
     }
 
