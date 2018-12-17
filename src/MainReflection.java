@@ -6,16 +6,16 @@ import java.lang.reflect.Method;
 
 public class MainReflection {
     public static void main(String[] args) throws IllegalAccessException, NoSuchMethodException {
-        Resume r = new Resume("Jack");
-        Field field = r.getClass().getDeclaredFields()[0];
+        Resume resume = new Resume("Jack");
+        Field field = resume.getClass().getDeclaredFields()[0];
         field.setAccessible(true);
         System.out.println(field.getName());
-        System.out.println(field.get(r));
-        field.set(r, "new_uuid");
+        System.out.println(field.get(resume));
+        field.set(resume, "new_uuid");
 
         Method method = Resume.class.getMethod("toString");
         try {
-            System.out.println(method.invoke(r));
+            System.out.println(method.invoke(resume));
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }

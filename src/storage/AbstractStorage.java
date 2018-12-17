@@ -13,22 +13,22 @@ public abstract class AbstractStorage implements Storage {
             Comparator.comparing(Resume::getUuid);
 
     @Override
-    public void update(Resume r) {
-        Object key = getSearchedObject(r.getUuid());
+    public void update(Resume resume) {
+        Object key = getSearchedObject(resume.getUuid());
         if (!isContained(key)) {
-            throw new NotExistStorageException(r.getUuid());
+            throw new NotExistStorageException(resume.getUuid());
         } else {
-            replace(r, key);
+            replace(resume, key);
         }
     }
 
     @Override
-    public void save(Resume r) {
-        Object index = getSearchedObject(r.getUuid());
+    public void save(Resume resume) {
+        Object index = getSearchedObject(resume.getUuid());
         if (isContained(index)) {
-            throw new ExistStorageException(r.getUuid());
+            throw new ExistStorageException(resume.getUuid());
         } else {
-            insertResume(r, index);
+            insertResume(resume, index);
         }
 
     }
@@ -69,11 +69,11 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract boolean isContained(Object key);
 
-    protected abstract void insertResume(Resume r, Object key);
+    protected abstract void insertResume(Resume resume, Object key);
 
     protected abstract Resume retrieve(Object key);
 
     protected abstract void remove(Object key);
 
-    protected abstract void replace(Resume r, Object key);
+    protected abstract void replace(Resume resume, Object key);
 }

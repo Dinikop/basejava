@@ -37,8 +37,8 @@ public class MapResumeStorage extends AbstractStorage {
     }
 
     @Override
-    protected void insertResume(Resume r, Object searchedResume) {
-        storage.put(r.getUuid(), r);
+    protected void insertResume(Resume resume, Object searchedResume) {
+        storage.put(resume.getUuid(), resume);
     }
 
     @Override
@@ -53,8 +53,8 @@ public class MapResumeStorage extends AbstractStorage {
     }
 
     @Override
-    protected void replace(Resume r, Object searchedResume) {
+    protected void replace(Resume resume, Object searchedResume) {
         String uuid = ((Resume) searchedResume).getUuid();
-        storage.replace(uuid, r);
+        storage.replace(uuid, resume);
     }
 }

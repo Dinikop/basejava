@@ -37,8 +37,8 @@ public class MapUuidStorage extends AbstractStorage {
     }
 
     @Override
-    protected void insertResume(Resume r, Object key) {
-        storage.put((String) key, r);
+    protected void insertResume(Resume resume, Object key) {
+        storage.put((String) key, resume);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class MapUuidStorage extends AbstractStorage {
     }
 
     @Override
-    protected void replace(Resume r, Object key) {
-        storage.replace((String) key, r);
+    protected void replace(Resume resume, Object key) {
+        storage.replace((String) key, resume);
     }
 }
