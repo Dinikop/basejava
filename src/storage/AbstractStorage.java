@@ -10,7 +10,7 @@ import java.util.List;
 public abstract class AbstractStorage implements Storage {
 
     private static final Comparator<Resume> RESUME_COMPARATOR =
-            Comparator.comparing(Resume::getUuid).thenComparing(Resume::getFullName);
+            Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);
 
     protected abstract List<Resume> getStorage();
 
@@ -58,18 +58,18 @@ public abstract class AbstractStorage implements Storage {
     }
 
     private Object getExistedSearchKey(String uuid) {
-        Object index = getSearchedObject(uuid);
-        if (!isContained(index)) {
+        Object searchedObject = getSearchedObject(uuid);
+        if (!isContained(searchedObject)) {
             throw new NotExistStorageException(uuid);
         }
-        return index;
+        return searchedObject;
     }
 
     private Object getNotExistedSearchKey(String uuid) {
-        Object index = getSearchedObject(uuid);
-        if (isContained(index)) {
+        Object searchedObject = getSearchedObject(uuid);
+        if (isContained(searchedObject)) {
             throw new ExistStorageException(uuid);
         }
-        return index;
+        return searchedObject;
     }
 }
