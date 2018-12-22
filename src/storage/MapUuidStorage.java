@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class MapUuidStorage extends AbstractStorage {
+public class MapUuidStorage extends AbstractStorage<String> {
 
     protected Map<String, Resume> storage = new HashMap<>();
 
@@ -27,32 +27,32 @@ public class MapUuidStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isContained(Object searchedKey) {
-        return storage.containsKey((String) searchedKey);
+    protected boolean isContained(String searchedKey) {
+        return storage.containsKey(searchedKey);
     }
 
     @Override
-    protected Object getSearchedObject(String uuid) {
+    protected String getSearchedObject(String uuid) {
         return uuid;
     }
 
     @Override
-    protected void insertResume(Resume resume, Object searchedKey) {
-        storage.put((String) searchedKey, resume);
+    protected void insertResume(Resume resume, String searchedKey) {
+        storage.put(searchedKey, resume);
     }
 
     @Override
-    protected Resume retrieve(Object searchedKey) {
-        return storage.get((String) searchedKey);
+    protected Resume retrieve(String searchedKey) {
+        return storage.get(searchedKey);
     }
 
     @Override
-    protected void remove(Object searchedKey) {
-        storage.remove((String) searchedKey);
+    protected void remove(String searchedKey) {
+        storage.remove(searchedKey);
     }
 
     @Override
-    protected void replace(Resume resume, Object searchedKey) {
-        storage.replace((String) searchedKey, resume);
+    protected void replace(Resume resume, String searchedKey) {
+        storage.replace(searchedKey, resume);
     }
 }

@@ -11,21 +11,21 @@ public class SortedArrayStorage extends AbstractArrayStorage {
             Comparator.comparing(Resume::getUuid);
 
     @Override
-    protected Object getSearchedObject(String uuid) {
+    protected Integer getSearchedObject(String uuid) {
         Resume searchKey = new Resume(uuid, "fullName");
         return Arrays.binarySearch(storage, 0, size, searchKey, RESUME_UUID_COMPARATOR);
     }
 
     @Override
-    protected void insertByIndex(Resume resume, Object index) {
-        int insertionIndex = -(int) index - 1;
+    protected void insertByIndex(Resume resume, Integer index) {
+        int insertionIndex = -index - 1;
         System.arraycopy(storage, insertionIndex, storage, insertionIndex + 1, size - insertionIndex);
         storage[insertionIndex] = resume;
     }
 
     @Override
-    protected void deleteByIndex(Object index) {
-        System.arraycopy(storage, (int) index + 1, storage, (int) index, (size - 1) - (int) index);
+    protected void deleteByIndex(Integer index) {
+        System.arraycopy(storage, index + 1, storage, index, (size - 1) - index);
     }
 
 }

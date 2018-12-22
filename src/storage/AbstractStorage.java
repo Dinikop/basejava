@@ -7,40 +7,40 @@ import model.Resume;
 import java.util.Comparator;
 import java.util.List;
 
-public abstract class AbstractStorage implements Storage {
+public abstract class AbstractStorage<SK> implements Storage {
 
     private static final Comparator<Resume> RESUME_COMPARATOR =
             Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);
 
     protected abstract List<Resume> getStorage();
 
-    protected abstract Object getSearchedObject(String uuid);
+    protected abstract SK getSearchedObject(String uuid);
 
-    protected abstract boolean isContained(Object searchedKey);
+    protected abstract boolean isContained(SK searchedKey);
 
-    protected abstract void insertResume(Resume resume, Object searchedKey);
+    protected abstract void insertResume(Resume resume, SK searchedKey);
 
-    protected abstract Resume retrieve(Object searchedKey);
+    protected abstract Resume retrieve(SK searchedKey);
 
-    protected abstract void remove(Object searchedKey);
+    protected abstract void remove(SK searchedKey);
 
-    protected abstract void replace(Resume resume, Object searchedKey);
+    protected abstract void replace(Resume resume, SK searchedKey);
 
     @Override
     public void update(Resume resume) {
-        Object searchedKey = getExistedSearchKey(resume.getUuid());
+        SK searchedKey = getExistedSearchKey(resume.getUuid());
         replace(resume, searchedKey);
     }
 
     @Override
     public void save(Resume resume) {
-        Object searchedKey = getNotExistedSearchKey(resume.getUuid());
+        SK searchedKey = getNotExistedSearchKey(resume.getUuid());
         insertResume(resume, searchedKey);
     }
 
     @Override
     public Resume get(String uuid) {
-        Object searchedKey = getExistedSearchKey(uuid);
+        SK searchedKey = getExistedSearchKey(uuid);
         return retrieve(searchedKey);
     }
 
@@ -53,20 +53,20 @@ public abstract class AbstractStorage implements Storage {
 
     @Override
     public void delete(String uuid) {
-        Object searchedKey = getExistedSearchKey(uuid);
+        SK searchedKey = getExistedSearchKey(uuid);
         remove(searchedKey);
     }
 
-    private Object getExistedSearchKey(String uuid) {
-        Object searchedObject = getSearchedObject(uuid);
+    private SK getExistedSearchKey(String uuid) {
+        SK searchedObject = getSearchedObject(uuid);
         if (!isContained(searchedObject)) {
             throw new NotExistStorageException(uuid);
         }
         return searchedObject;
     }
 
-    private Object getNotExistedSearchKey(String uuid) {
-        Object searchedObject = getSearchedObject(uuid);
+    private SK getNotExistedSearchKey(String uuid) {
+        SK searchedObject = getSearchedObject(uuid);
         if (isContained(searchedObject)) {
             throw new ExistStorageException(uuid);
         }

@@ -6,7 +6,7 @@ import model.Resume;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class AbstractArrayStorage extends AbstractStorage {
+public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
 
     protected static final int STORAGE_LIMIT = 10_000;
 
@@ -31,12 +31,12 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isContained(Object searchedKey) {
-        return (int) searchedKey >= 0;
+    protected boolean isContained(Integer searchedKey) {
+        return searchedKey >= 0;
     }
 
     @Override
-    protected void insertResume(Resume resume, Object searchedKey) {
+    protected void insertResume(Resume resume, Integer searchedKey) {
         if (size == STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", resume.getUuid());
         }
@@ -45,24 +45,24 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume retrieve(Object searchedKey) {
-        return storage[(int) searchedKey];
+    protected Resume retrieve(Integer searchedKey) {
+        return storage[searchedKey];
     }
 
     @Override
-    protected void remove(Object searchedKey) {
+    protected void remove(Integer searchedKey) {
         deleteByIndex(searchedKey);
         size--;
     }
 
     @Override
-    protected void replace(Resume resume, Object searchedKey) {
-        storage[(int) searchedKey] = resume;
+    protected void replace(Resume resume, Integer searchedKey) {
+        storage[searchedKey] = resume;
     }
 
-    protected abstract Object getSearchedObject(String uuid);
+    protected abstract Integer getSearchedObject(String uuid);
 
-    protected abstract void insertByIndex(Resume resume, Object index);
+    protected abstract void insertByIndex(Resume resume, Integer index);
 
-    protected abstract void deleteByIndex(Object index);
+    protected abstract void deleteByIndex(Integer index);
 }
