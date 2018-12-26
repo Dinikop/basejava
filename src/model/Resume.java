@@ -1,7 +1,6 @@
 package model;
 
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Initial resume class
@@ -11,6 +10,18 @@ public class Resume {
     private final String uuid;
 
     private String fullName;
+
+    private Map<String, String> contacts = new TreeMap<>();
+
+    private Map<SectionType, Section> sections = new EnumMap<>(SectionType.class);
+
+    public void addSection(SectionType sectionType, Section section) {
+        sections.put(sectionType, section);
+    }
+
+    public void addContact(String type, String value) {
+        contacts.put(type, value);
+    }
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
@@ -47,8 +58,6 @@ public class Resume {
 
     @Override
     public String toString() {
-        return uuid + " (" + fullName + ")";
+        return fullName + "\n" + contacts + "\n" + sections;
     }
-
-
 }
