@@ -1,16 +1,19 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Place {
     private String name;
-    private String beginDate;
-    private String endDate;
+    private String url;
+    private LocalDate beginDate;
+    private LocalDate endDate;
     private String description;
     private String note;
 
-    public Place(String name, String beginDate, String endDate, String description, String note) {
+    public Place(String name, String url, LocalDate beginDate, LocalDate endDate, String description, String note) {
         this.name = name;
+        this.url = url;
         this.beginDate = beginDate;
         this.endDate = endDate;
         this.description = description;
@@ -21,6 +24,7 @@ public class Place {
     public String toString() {
         return "Place{" +
                 "name='" + name + '\'' +
+                ", url='" + url + '\'' +
                 ", beginDate='" + beginDate + '\'' +
                 ", endDate='" + endDate + '\'' +
                 ", description='" + description + '\'' +
@@ -34,6 +38,7 @@ public class Place {
         if (o == null || getClass() != o.getClass()) return false;
         Place place = (Place) o;
         return Objects.equals(name, place.name) &&
+                Objects.equals(url, place.url) &&
                 Objects.equals(beginDate, place.beginDate) &&
                 Objects.equals(endDate, place.endDate) &&
                 Objects.equals(description, place.description) &&
@@ -42,6 +47,6 @@ public class Place {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, beginDate, endDate, description, note);
+        return Objects.hash(name, url, beginDate, endDate, description, note);
     }
 }

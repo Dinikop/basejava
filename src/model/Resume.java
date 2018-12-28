@@ -1,6 +1,9 @@
 package model;
 
-import java.util.*;
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.UUID;
 
 /**
  * Initial resume class
@@ -11,17 +14,9 @@ public class Resume {
 
     private String fullName;
 
-    private Map<String, String> contacts = new TreeMap<>();
+    private Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
 
-    private Map<SectionType, Section> sections = new EnumMap<>(SectionType.class);
-
-    public void addSection(SectionType sectionType, Section section) {
-        sections.put(sectionType, section);
-    }
-
-    public void addContact(String type, String value) {
-        contacts.put(type, value);
-    }
+    private Map<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
@@ -32,6 +27,14 @@ public class Resume {
         Objects.requireNonNull(fullName, "fullName must not be null");
         this.uuid = uuid;
         this.fullName = fullName;
+    }
+
+    public void addSection(SectionType sectionType, AbstractSection section) {
+        sections.put(sectionType, section);
+    }
+
+    public void addContact(ContactType type, String value) {
+        contacts.put(type, value);
     }
 
     public String getUuid() {

@@ -2,7 +2,7 @@ package model;
 
 import java.util.Objects;
 
-public class StringSection extends Section {
+public class StringSection extends AbstractSection {
     private String description;
 
     public StringSection(String description) {
