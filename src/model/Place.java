@@ -4,32 +4,21 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Place {
-    private String name;
-    private String url;
-    private LocalDate beginDate;
-    private LocalDate endDate;
-    private String description;
-    private String note;
+    private final Link homePadge;
+    private final LocalDate beginDate;
+    private final LocalDate endDate;
+    private final String title;
+    private final String description;
 
-    public Place(String name, String url, LocalDate beginDate, LocalDate endDate, String description, String note) {
-        this.name = name;
-        this.url = url;
+    public Place(String name, String url, LocalDate beginDate, LocalDate endDate, String title, String description) {
+        Objects.requireNonNull(beginDate, "begin date must not be null");
+        Objects.requireNonNull(endDate, "endDate date must not be null");
+        Objects.requireNonNull(title, "title date must not be null");
+        this.homePadge = new Link(name, url);
         this.beginDate = beginDate;
         this.endDate = endDate;
+        this.title = title;
         this.description = description;
-        this.note = note;
-    }
-
-    @Override
-    public String toString() {
-        return "Place{" +
-                "name='" + name + '\'' +
-                ", url='" + url + '\'' +
-                ", beginDate='" + beginDate + '\'' +
-                ", endDate='" + endDate + '\'' +
-                ", description='" + description + '\'' +
-                ", note='" + note + '\'' +
-                '}';
     }
 
     @Override
@@ -37,16 +26,26 @@ public class Place {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Place place = (Place) o;
-        return Objects.equals(name, place.name) &&
-                Objects.equals(url, place.url) &&
-                Objects.equals(beginDate, place.beginDate) &&
-                Objects.equals(endDate, place.endDate) &&
-                Objects.equals(description, place.description) &&
-                Objects.equals(note, place.note);
+        return homePadge.equals(place.homePadge) &&
+                beginDate.equals(place.beginDate) &&
+                endDate.equals(place.endDate) &&
+                title.equals(place.title) &&
+                Objects.equals(description, place.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, url, beginDate, endDate, description, note);
+        return Objects.hash(homePadge, beginDate, endDate, title, description);
+    }
+
+    @Override
+    public String toString() {
+        return "Place{" +
+                "homePadge=" + homePadge +
+                ", beginDate=" + beginDate +
+                ", endDate=" + endDate +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

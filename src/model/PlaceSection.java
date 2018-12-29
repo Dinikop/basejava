@@ -4,15 +4,11 @@ import java.util.List;
 import java.util.Objects;
 
 public class PlaceSection extends AbstractSection {
-    private List<Place> places;
+    private final List<Place> places;
 
     public PlaceSection(List<Place> places) {
+        Objects.requireNonNull(places, "Places must not be null");
         this.places = places;
-    }
-
-    @Override
-    public String toString() {
-        return places.toString();
     }
 
     @Override
@@ -20,11 +16,16 @@ public class PlaceSection extends AbstractSection {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PlaceSection that = (PlaceSection) o;
-        return Objects.equals(places, that.places);
+        return places.equals(that.places);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(places);
+    }
+
+    @Override
+    public String toString() {
+        return places.toString();
     }
 }

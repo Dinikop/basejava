@@ -1,4 +1,4 @@
-package model;
+import model.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -24,20 +24,20 @@ public class ResumeTestData {
 
     private static void fillEducation(Resume resume) {
         List<Place> educationPlaces = new ArrayList<>();
-        educationPlaces.add(new Place("Coursera", "https://www.coursera.org/course/progfun", LocalDate.of(2013, 3, 1),
-                LocalDate.of(2013, 5, 1), "Functional Programming Principles in Scala by Martin Odersky", ""));
-        educationPlaces.add(new Place("Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366", LocalDate.of(2011, 3, 1),
-                LocalDate.of(2011, 4, 1), "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"", ""));
+        educationPlaces.add(new Place("Coursera", "https://www.coursera.org/course/progfun",
+                LocalDate.of(2013, 3, 1), LocalDate.of(2013, 5, 1), "Functional Programming Principles in Scala by Martin Odersky", null));
+        educationPlaces.add(new Place("Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366",
+                LocalDate.of(2011, 3, 1), LocalDate.of(2011, 4, 1), "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"", null));
         AbstractSection education = new PlaceSection(educationPlaces);
         resume.addSection(EDUCATION, education);
     }
 
     private static void fillExperience(Resume resume) {
         List<Place> experiencePlaces = new ArrayList<>();
-        experiencePlaces.add(new Place("Java Online Projects", "http://javaops.ru/", LocalDate.of(2013, 10, 1),
-                LocalDate.now(), "Автор проекта.", "Создание, организация и проведение Java онлайн проектов и стажировок."));
-        experiencePlaces.add(new Place("Wrike", "https://www.wrike.com/", LocalDate.of(2014, 10, 1), LocalDate.of(2016, 01, 1),
-                "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами"));
+        experiencePlaces.add(new Place("Java Online Projects", "http://javaops.ru/",
+                LocalDate.of(2013, 10, 1), LocalDate.now(), "Автор проекта.", "Создание, организация и проведение Java онлайн проектов и стажировок."));
+        experiencePlaces.add(new Place("Wrike", "https://www.wrike.com/", LocalDate.of(2014, 10, 1),
+                LocalDate.of(2016, 01, 1), "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами Wrike"));
         AbstractSection experience = new PlaceSection(experiencePlaces);
         resume.addSection(EXPERIENCE, experience);
     }
@@ -57,12 +57,12 @@ public class ResumeTestData {
     }
 
     private static void fillObjective(Resume resume) {
-        AbstractSection objective = new StringSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям");
+        AbstractSection objective = new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям");
         resume.addSection(OBJECTIVE, objective);
     }
 
     private static void fillPersonal(Resume resume) {
-        AbstractSection personal = new StringSection("Аналитический склад ума, сильная логика, креативность");
+        AbstractSection personal = new TextSection("Аналитический склад ума, сильная логика, креативность");
         resume.addSection(PERSONAL, personal);
     }
 
