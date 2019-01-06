@@ -11,7 +11,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
             Comparator.comparing(Resume::getUuid);
 
     @Override
-    protected Integer getSearchedObject(String uuid) {
+    protected Integer getSearchedKey(String uuid) {
         Resume searchKey = new Resume(uuid, "fullName");
         return Arrays.binarySearch(storage, 0, size, searchKey, RESUME_UUID_COMPARATOR);
     }
@@ -25,7 +25,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     protected void deleteByIndex(Integer index) {
-        System.arraycopy(storage, index + 1, storage, index, (size - 1) - index);
+        System.arraycopy(storage, index + 1, storage, index, size - 1 - index);
     }
 
 }

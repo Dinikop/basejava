@@ -8,7 +8,7 @@ import org.dnk.model.Resume;
 public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
-    protected Integer getSearchedObject(String uuid) {
+    protected Integer getSearchedKey(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {
                 return i;

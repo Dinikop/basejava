@@ -2,8 +2,8 @@ package org.dnk.storage;
 
 import org.dnk.model.Resume;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +23,7 @@ public class MapUuidStorage extends AbstractStorage<String> {
 
     @Override
     protected List<Resume> doCopyAll() {
-        return new LinkedList<>(storage.values());
+        return new ArrayList<>(storage.values());
     }
 
     @Override
@@ -32,7 +32,7 @@ public class MapUuidStorage extends AbstractStorage<String> {
     }
 
     @Override
-    protected String getSearchedObject(String uuid) {
+    protected String getSearchedKey(String uuid) {
         return uuid;
     }
 

@@ -14,7 +14,7 @@ public abstract class AbstractStorage<SK> implements Storage {
 
     protected abstract List<Resume> doCopyAll();
 
-    protected abstract SK getSearchedObject(String uuid);
+    protected abstract SK getSearchedKey(String uuid);
 
     protected abstract boolean isExist(SK searchedKey);
 
@@ -58,7 +58,7 @@ public abstract class AbstractStorage<SK> implements Storage {
     }
 
     private SK getExistedSearchKey(String uuid) {
-        SK searchedObject = getSearchedObject(uuid);
+        SK searchedObject = getSearchedKey(uuid);
         if (!isExist(searchedObject)) {
             throw new NotExistStorageException(uuid);
         }
@@ -66,7 +66,7 @@ public abstract class AbstractStorage<SK> implements Storage {
     }
 
     private SK getNotExistedSearchKey(String uuid) {
-        SK searchedObject = getSearchedObject(uuid);
+        SK searchedObject = getSearchedKey(uuid);
         if (isExist(searchedObject)) {
             throw new ExistStorageException(uuid);
         }

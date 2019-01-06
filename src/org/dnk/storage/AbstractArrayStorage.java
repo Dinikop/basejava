@@ -52,6 +52,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     @Override
     protected void doDelete(Integer searchedKey) {
         deleteByIndex(searchedKey);
+        storage[size - 1] = null;
         size--;
     }
 
@@ -60,7 +61,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
         storage[searchedKey] = resume;
     }
 
-    protected abstract Integer getSearchedObject(String uuid);
+    protected abstract Integer getSearchedKey(String uuid);
 
     protected abstract void insertByIndex(Resume resume, Integer index);
 
